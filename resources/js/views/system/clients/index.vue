@@ -44,7 +44,7 @@
                                 </div>
                             </header>
                             <div class="card-body p-4 text-center">
-                                <p class="font-weight-semibold mb-0 mx-4">Total Clientes</p>
+                                <p class="font-weight-semibold mb-0 mx-4">ABC</p>
                                 <h2 class="font-weight-semibold mt-0">{{ records.length }}</h2>
                                 <div class="summary-footer">
                                     <a class="text-muted text-uppercase"

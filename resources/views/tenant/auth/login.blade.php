@@ -12,11 +12,16 @@
                 </div>
             </div>
             <div class="text-center">
-                <h1 class="auth__title"><span class="text-xs">Bienvenido a</span><br><b>{{ $company->trade_name }}</b></h1>
-                <p>Ingresa a tu cuenta</p>
+                <h1 class="auth__title">
+                    <span class="text-xs">Bienvenido a</span><br>
+                    <div class="mype-logo-container my-3">
+                        <img src="{{ asset('images/logo-mype.png') }}" alt="MYPE" class="mype-logo" style="max-width: 120px; height: auto;">
+                    </div>
+                    <b class="company-name">{{ $company->trade_name }}</b>
+                </h1>
             </div>
             <div class="form-group">
-                <label for="email">Correo electrónico</label>
+                <label for="email">Correo corporativo</label>
                 <input type="email" name="email" id="email" class="form-control {{ $errors->has('email') ? 'is-invalid' : '' }}" value="{{ old('email') }}" autofocus>
                 @if ($errors->has('email'))
                 <div class="invalid-feedback">{{ $errors->first('email') }}</div>
@@ -37,6 +42,14 @@
             <button type="submit" class="btn btn-signin btn-block">INICIAR SESIÓN</button>
             <div class="text-center p-4">
                 <a href="{{ url('password/reset') }}" tabindex="5">¿Has olvidado tu contraseña?</a>
+            </div>
+            <div class="form-group">
+                <div class="form-check">
+                    <input type="checkbox" name="terms_accepted" id="terms_accepted" class="form-check-input" required>
+                    <label class="form-check-label" for="terms_accepted">
+                        Al continuar, aceptas nuestros <a href="#" target="_blank">Términos de Servicio</a> y nuestra <a href="#" target="_blank">Política de Privacidad</a>.
+                    </label>
+                </div>
             </div>
             @include('tenant.auth.partials.socials')
         </form>
