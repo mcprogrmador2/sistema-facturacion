@@ -187,15 +187,15 @@
                         <!-- <th>#</th> -->
                         <th class="text-right" style="max-width: 83px;">ID</th>
                         <th class="text-right">Cód. Interno</th>
-                        <th>Unidad</th>
-                        <th>Imagen</th>
+                        <th>Uni</th>
+                        <th>ima</th>
                         <th>
                             <a href="#" @click.prevent="sort('description')" style="color: inherit; text-decoration: none;">
-                                Nombre 
+                                Nombre
                                 <i class="fas" :class="{
                                     'fa-sort-up': sortField === 'description' && sortDirection === 'asc',
                                     'fa-sort-down': sortField === 'description' && sortDirection === 'desc',
-                                    'fa-sort': sortField !== 'description' || 
+                                    'fa-sort': sortField !== 'description' ||
                                               (sortField === 'description' && sortDirection === 'default')
                                 }"></i>
                             </a>

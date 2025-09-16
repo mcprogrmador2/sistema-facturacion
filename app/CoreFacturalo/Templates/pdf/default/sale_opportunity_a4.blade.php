@@ -167,10 +167,10 @@
 <table class="full-width mt-10 mb-10">
     <thead class="">
     <tr class="bg-grey">
-        <th class="border-top-bottom text-center py-2" width="10%" style="color: #ffffff; background-color: #2c3e50;">IMAGEN</th>
-        <th class="border-top-bottom text-center py-2" width="8%" style="color: #ffffff; background-color: #2c3e50;">CANT.</th>
-        <th class="border-top-bottom text-center py-2" width="8%" style="color: #ffffff; background-color: #2c3e50;">UNIDAD</th>
-        <th class="border-top-bottom text-left py-2" style="color: #ffffff; background-color: #2c3e50;">DESCRIPCIÓN</th>
+        <th class="border-top-bottom text-center py-2" width="8%" style="color: #ffffff; background-color: #2c3e50;">IMAGEN</th>
+        <th class="border-top-bottom text-center py-2" width="7%" style="color: #ffffff; background-color: #2c3e50;">CANT.</th>
+        <th class="border-top-bottom text-center py-2" width="10%" style="color: #ffffff; background-color: #2c3e50; padding-right: 10px;">UNIDAD</th>
+        <th class="border-top-bottom text-left py-2" width="35%" style="color: #ffffff; background-color: #2c3e50; padding-left: 10px;">DESCRIPCIÓN</th>
         <th class="border-top-bottom text-right py-2" width="12%" style="color: #ffffff; background-color: #2c3e50;">P.UNIT</th>
         <th class="border-top-bottom text-right py-2" width="8%" style="color: #ffffff; background-color: #2c3e50;">DTO.</th>
         <th class="border-top-bottom text-right py-2" width="12%" style="color: #ffffff; background-color: #2c3e50;">TOTAL</th>
@@ -179,29 +179,37 @@
     <tbody>
     @foreach($document->items as $row)
         <tr>
-            <td class="text-center align-top" style="color: #34495e;">
+            <td class="text-center align-top" style="color: #000000;">
+                {{-- Columna de imagen - vacía hasta seleccionar variable --}}
+                @if(isset($show_item_images) && $show_item_images && $row->item->image)
+                    <img src="data:image/jpeg;base64,{{ base64_encode(file_get_contents(public_path('storage/uploads/items/'.$row->item->image))) }}" style="max-width: 50px; max-height: 50px;" />
+                @else
+                    {{-- Espacio vacío para imagen --}}
+                @endif
+            </td>
+            <td class="text-center align-top" style="color: #000000;">
                 @if(((int)$row->quantity != $row->quantity))
                     {{ $row->quantity }}
                 @else
                     {{ number_format($row->quantity, 0) }}
                 @endif
             </td>
-            <td class="text-center align-top" style="color: #34495e;">{{ $row->item->unit_type_id }}</td>
-            <td class="text-left" style="color: #2c3e50;">
+            <td class="text-center align-top" style="color: #000000; padding-right: 10px;">{{ $row->item->unit_type_id }}</td>
+            <td class="text-left" style="color: #000000; padding-left: 10px;">
                 {!!$row->item->description!!} @if (!empty($row->item->presentation)) {!!$row->item->presentation->description!!} @endif
                 @if($row->attributes)
                     @foreach($row->attributes as $attr)
-                        <br/><span style="font-size: 9px; color: #7f8c8d;">{!! $attr->description !!} : {{ $attr->value }}</span>
+                        <br/><span style="font-size: 9px; color: #000000;">{!! $attr->description !!} : {{ $attr->value }}</span>
                     @endforeach
                 @endif
                 @if($row->discounts)
                     @foreach($row->discounts as $dtos)
-                        <br/><span style="font-size: 9px; color: #e74c3c;">{{ $dtos->factor * 100 }}% {{$dtos->description }}</span>
+                        <br/><span style="font-size: 9px; color: #000000;">{{ $dtos->factor * 100 }}% {{$dtos->description }}</span>
                     @endforeach
                 @endif
             </td>
-            <td class="text-right align-top" style="color: #27ae60; font-weight: bold;">{{ number_format($row->unit_price, 2) }}</td>
-            <td class="text-right align-top" style="color: #e74c3c;">
+            <td class="text-right align-top" style="color: #000000; font-weight: bold;">{{ number_format($row->unit_price, 2) }}</td>
+            <td class="text-right align-top" style="color: #000000;">
                 @if($row->discounts)
                     @php
                         $total_discount_line = 0;
@@ -214,55 +222,55 @@
                 0
                 @endif
             </td>
-            <td class="text-right align-top" style="color: #2c3e50; font-weight: bold;">{{ number_format($row->total, 2) }}</td>
+            <td class="text-right align-top" style="color: #000000; font-weight: bold;">{{ number_format($row->total, 2) }}</td>
         </tr>
         <tr>
-            <td colspan="6" class="border-bottom"></td>
+            <td colspan="7" class="border-bottom"></td>
         </tr>
     @endforeach
         @if($document->total_exportation > 0)
             <tr>
-                <td colspan="5" class="text-right font-bold" style="color: #3498db;">OP. EXPORTACIÓN: {{ $document->currency_type->symbol }}</td>
-                <td class="text-right font-bold" style="color: #3498db;">{{ number_format($document->total_exportation, 2) }}</td>
+                <td colspan="6" class="text-right font-bold" style="color: #000000;">OP. EXPORTACIÓN: {{ $document->currency_type->symbol }}</td>
+                <td class="text-right font-bold" style="color: #000000;">{{ number_format($document->total_exportation, 2) }}</td>
             </tr>
         @endif
         @if($document->total_free > 0)
             <tr>
-                <td colspan="5" class="text-right font-bold" style="color: #9b59b6;">OP. GRATUITAS: {{ $document->currency_type->symbol }}</td>
-                <td class="text-right font-bold" style="color: #9b59b6;">{{ number_format($document->total_free, 2) }}</td>
+                <td colspan="6" class="text-right font-bold" style="color: #000000;">OP. GRATUITAS: {{ $document->currency_type->symbol }}</td>
+                <td class="text-right font-bold" style="color: #000000;">{{ number_format($document->total_free, 2) }}</td>
             </tr>
         @endif
         @if($document->total_unaffected > 0)
             <tr>
-                <td colspan="5" class="text-right font-bold" style="color: #f39c12;">OP. INAFECTAS: {{ $document->currency_type->symbol }}</td>
-                <td class="text-right font-bold" style="color: #f39c12;">{{ number_format($document->total_unaffected, 2) }}</td>
+                <td colspan="6" class="text-right font-bold" style="color: #000000;">OP. INAFECTAS: {{ $document->currency_type->symbol }}</td>
+                <td class="text-right font-bold" style="color: #000000;">{{ number_format($document->total_unaffected, 2) }}</td>
             </tr>
         @endif
         @if($document->total_exonerated > 0)
             <tr>
-                <td colspan="5" class="text-right font-bold" style="color: #16a085;">OP. EXONERADAS: {{ $document->currency_type->symbol }}</td>
-                <td class="text-right font-bold" style="color: #16a085;">{{ number_format($document->total_exonerated, 2) }}</td>
+                <td colspan="6" class="text-right font-bold" style="color: #000000;">OP. EXONERADAS: {{ $document->currency_type->symbol }}</td>
+                <td class="text-right font-bold" style="color: #000000;">{{ number_format($document->total_exonerated, 2) }}</td>
             </tr>
         @endif
         @if($document->total_taxed > 0)
             <tr>
-                <td colspan="5" class="text-right font-bold" style="color: #8e44ad;">OP. GRAVADAS: {{ $document->currency_type->symbol }}</td>
-                <td class="text-right font-bold" style="color: #8e44ad;">{{ number_format($document->total_taxed, 2) }}</td>
+                <td colspan="6" class="text-right font-bold" style="color: #000000;">OP. GRAVADAS: {{ $document->currency_type->symbol }}</td>
+                <td class="text-right font-bold" style="color: #000000;">{{ number_format($document->total_taxed, 2) }}</td>
             </tr>
         @endif
         @if($document->total_discount > 0)
             <tr>
-                <td colspan="5" class="text-right font-bold" style="color: #e74c3c;">DESCUENTO TOTAL: {{ $document->currency_type->symbol }}</td>
-                <td class="text-right font-bold" style="color: #e74c3c;">{{ number_format($document->total_discount, 2) }}</td>
+                <td colspan="6" class="text-right font-bold" style="color: #000000;">DESCUENTO TOTAL: {{ $document->currency_type->symbol }}</td>
+                <td class="text-right font-bold" style="color: #000000;">{{ number_format($document->total_discount, 2) }}</td>
             </tr>
         @endif
         <tr>
-            <td colspan="5" class="text-right font-bold" style="color: #c0392b;">IGV: {{ $document->currency_type->symbol }}</td>
-            <td class="text-right font-bold" style="color: #c0392b;">{{ number_format($document->total_igv, 2) }}</td>
+            <td colspan="6" class="text-right font-bold" style="color: #000000;">IGV: {{ $document->currency_type->symbol }}</td>
+            <td class="text-right font-bold" style="color: #000000;">{{ number_format($document->total_igv, 2) }}</td>
         </tr>
         <tr>
-            <td colspan="5" class="text-right font-bold" style="color: #27ae60; font-size: 14px; background-color: #ecf0f1;">TOTAL A PAGAR: {{ $document->currency_type->symbol }}</td>
-            <td class="text-right font-bold" style="color: #27ae60; font-size: 14px; background-color: #ecf0f1;">{{ number_format($document->total, 2) }}</td>
+            <td colspan="6" class="text-right font-bold" style="color: #000000; font-size: 14px; background-color: #ecf0f1;">TOTAL A PAGAR: {{ $document->currency_type->symbol }}</td>
+            <td class="text-right font-bold" style="color: #000000; font-size: 14px; background-color: #ecf0f1;">{{ number_format($document->total, 2) }}</td>
         </tr>
     </tbody>
 </table>
