@@ -22,6 +22,7 @@ class TenantPersonTypesTable extends Migration
         DB::table('person_types')->insert([ 
             ['id'=> '1','description' => 'Interno', 'created_at'=>now(), 'updated_at'=>now()],
             ['id'=> '2','description' => 'Distribuidor', 'created_at'=>now(), 'updated_at'=>now()],
+            ['id'=> '3','description' => 'Whapi', 'created_at'=>now(), 'updated_at'=>now()],
         ]);
     }
 
