@@ -26,8 +26,11 @@ $font: 'Roboto', sans-serif;
         font-weight: 400;
     }
     a {
-        color: $blue;
+        color: #39AA36;
         font-size: 13px;
+        &:hover {
+            color: #2d8029;
+        }
     }
     label {
         font-size: 13px;
@@ -65,11 +68,11 @@ $font: 'Roboto', sans-serif;
         top: 3px;
         background-color: transparent;
         border: none;
-        color: rgba(0, 0, 0, 0.25);
+        color: #39AA36;
         &:hover,
         &:focus {
             background-color: transparent;
-            color: rgba(0, 0, 0, 0.75);
+            color: #2d8029;
         }
     }
     &.auth__form-left {
@@ -128,7 +131,7 @@ $font: 'Roboto', sans-serif;
     padding: 1rem;
     margin-top: 25px;
     border-radius: 8px;
-    
+
     &:hover{
         opacity: 0.9;
     }
